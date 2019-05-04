@@ -1,0 +1,104 @@
+<!--pages/checkout/checkout.wxml-->
+<retry visibility="{{(!loading)&&(!loadingSuccess)}}" bind:onRetryClicked="onRetryClicked" errorMessage="网络不给力?"></retry>
+<loading visibility="{{loading}}"></loading>
+<view class='root' style="display:{{loading?'none;':'flex;'}}  padding-left: 5px; padding-right: 5px;">
+   <scroll-view  scroll-y style="height: 92vh;">
+      <view wx:if="{{order.status==='UNPAID'}}" style='margin-top:10px;padding:10px; font-weight:bold;font-size:16px;background-color:white;display:flex;align-items:center;'>
+         <text>等待支付</text>
+         <text style='margin-left:10px;font-size:12px;font-weight:normal;color:red;'>请在12:38内完成支付,超时将自动取消</text>
+      </view>
+      <view wx:elif="{{order.status==='CONFIRMED'}}" style='margin-top:10px;padding:10px; font-weight:bold;font-size:16px;background-color:white;display:flex;align-items:center;'>
+         <text>等待取餐</text>
+         <text style='margin-left:10px;font-size:12px;font-weight:normal;color:red;'>取餐码: {{order.orderCode}}</text>
+         <text>取餐时间{{order.orderCode}}</text>
+      </view>
+      <view wx:elif="{{order.status==='CANCELED'}}" style='margin-top:10px;padding:10px; font-weight:bold;font-size:16px;background-color:white;'>
+         <text>订单已取消</text>
+      </view>
+      <view wx:elif="{{order.status==='FINISHED'}}" style='margin-top:10px;padding:10px; font-weight:bold;font-size:16px;background-color:white;'>
+         <text>订单已完成</text>
+      </view>
+      <view wx:else style='margin-top:10px;padding:10px; font-weight:bold;font-size:16px;background-color:white;'>
+         <text>订单状态错误!</text>
+      </view>
+      <view style='margin-top:10px;padding:10px; font-weight:bold;font-size:16px;background-color:white;display:flex;align-items:center;'>
+         <text>餐品详情</text>
+      </view>
+      <horizontalLine/>
+
+      <view class='food_item_container' wx:for="{{cartMap}}" wx:key="{{item.product.id}}">
+         <text style='width:60vw;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;'>{{item.product.name}}</text>
+         <text style='width:19vw;text-align: left;'>¥{{item.subTotal}}</text>
+         <view style='width:15vw;display:flex;flex-direction:row;align-items:center;justify-content:flex-end;'>
+            X{{item.quantity}}
+         </view>
+
+      </view>
+      <view style='padding:10px; font-weight:bold;font-size:14px;background-color:white;display:flex;flex-direction:row;justify-content:flex-end;'>
+
+         <text>共{{order.totalCount}}件</text>
+         <text style='margin-left:15px;'>小计:  </text>
+         <text style='color:red;margin-left:10px;'>¥{{order.totalPrice}}</text>
+      </view>
+      <view style='margin-bottom:10px;' />
+
+      <view style='padding:10px; font-weight:bold;font-size:16px;background-color:white; display:flex;align-items:center;flex-direction:row; justify-content:space-between;'>
+         <text>就餐方式</text>
+         <view style='flex-direction:flex-end;display:flex;align-items:center;font-weight:normal;'>
+            <image style='width:18px;height:18px;margin-right:5px;' src="{{wayOfEating=='TAKE_AWAY'?'/resources/imgs/eating_in.png':'/resources/imgs/takeaway.png'}}"></image>
+            <text>{{order.wayOfEating=="TAKE_AWAY"?"打包带走":"店内就餐"}}</text>
+         </view>
+      </view>
+      <view style='margin-bottom:10px;' />
+
+      <view style='padding:10px; font-weight:bold;font-size:16px;background-color:white; display:flex;align-items:center;flex-direction:row; justify-content:space-between;'>
+         <text>联系方式</text>
+         <text style='font-weight:normal;'>{{phone}}123243244</text>
+      </view>
+
+      <view style='margin-top:10px;padding:10px; font-weight:bold;font-size:16px;background-color:white;'>
+         <text>订单信息</text>
+      </view>
+      <horizontalLine/>
+
+      <view class='food_item_container' style='font-size:12px;padding-top:15px;padding-bottom:0px;'>
+         <text style='width:30vw;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;color:#989898'>订单号码</text>
+         <view style='width:64vw;text-align: left;display:flex;flex-direction:row;align-items:center;justify-content:flex-end;'>
+            <text style='margin-right:10px;'>321323 132132312 321132321</text>
+            <view style='line-height:1; text-decorator:none;border-radius:0px;border: 1px solid gray; padding:3px;'>复制</view>
+         </view>
+
+      </view>
+      <view class='food_item_container' style='font-size:12px;padding-top:15px;padding-bottom:0px;'>
+         <text style='width:30vw;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;color:#989898'>下单时间</text>
+         <view style='width:64vw;text-align: left;display:flex;flex-direction:row;align-items:center;justify-content:flex-end;'>
+            <view style='line-height:1; '>2019-04-05 12:30:30</view>
+         </view>
+
+      </view>
+      <view class='food_item_container' style='font-size:12px;padding-top:15px;padding-bottom:15px;margin-bottom:15px;'>
+         <text style='width:30vw;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;color:#989898'>支付方式</text>
+         <view style='width:64vw;text-align: left;display:flex;flex-direction:row;align-items:center;justify-content:flex-end;'>
+            <view style='line-height:1; '>微信</view>
+         </view>
+
+      </view>
+
+   </scroll-view>
+   <view class='check_bottom' style='position:fixed; left:0px; bottom:0px;width:100vw;'>
+      <view class='check_bottom_left' wx:if="{{order.status==='UNPAID'}}" bindtap='onOrderCancelClicked'>
+         <view style='margin-left:15px;font-weight:bold;font-size:18px;'>取消订单</view>
+      </view>
+      <view wx:if="{{order.status==='UNPAID'}}" style='width:1px;background-color:white;height:100%;font-size:16px;'></view>
+      <view wx:if="{{order.statu==='UNPAID'}}" class='check_bottom_right' bindtap='onPaymentClicked'>
+         去支付
+         <image style='margin-left:5px;width:16px;height:16px;' src='/resources/imgs/ico_forward_white.svg'></image>
+      </view>
+      <view wx:if="{{order.status!=='UNPAID'}}" class='check_bottom_right' bindtap='onOrderAgainClicked'>
+         再来一单
+      </view>
+
+   </view>
+
+
+</view>

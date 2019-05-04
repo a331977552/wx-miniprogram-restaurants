@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "horizontalLine": "/components/horizontalLine/horizontalLine"
+  },
+  
+        "navigationBarTitleText": "确认订单"
+}

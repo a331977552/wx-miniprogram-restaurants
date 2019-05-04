@@ -1,0 +1,74 @@
+/* pages/checkout/checkout.wxss */
+
+.root {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: calc(100vw -10px);
+    background-color: #eee;
+
+}
+::-webkit-scrollbar {
+    width: 0px;
+    height: 0px;
+    color: transparent;
+}
+
+
+
+.food_item_container {
+    padding: 10px;
+    font-size: 14px;
+    background-color: white;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.check_bottom {
+    background-color: #333;
+    height: 8vh;
+    display: flex;
+    flex-direction: row;
+    color: white;
+    align-items: center;
+}
+
+.check_bottom_left {
+    height: 100%;
+    flex-direction: row;
+     width: 120px;
+    align-items: center;
+    display: flex;
+}
+
+.check_bottom_right {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    height: 100%;
+    flex-grow: 1;
+}
+
+.checkout_wayofEating_frame {
+    width: 50%;
+    border: 1px solid #ababab;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  
+}
+.checkout_wayofEating_frame_seleted {
+    width: 50%;
+    border: 1px solid #F91A07;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: #FEE6E4;
+    color: #F91A07;
+    
+}

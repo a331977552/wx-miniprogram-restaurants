@@ -1,0 +1,8 @@
+{
+  "usingComponents": {
+        "horizontalLine": "/components/horizontalLine/horizontalLine",
+        "loading": "/components/loading/loading",
+        "retry": "/components/retry/retry"
+  },
+    "navigationBarTitleText": "订单详情"
+}

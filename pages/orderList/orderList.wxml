@@ -1,0 +1,77 @@
+<!--pages/checkout/checkout.wxml-->
+
+<retry visibility="{{(!loading)&&(!loadingSuccess)}}" bind:onRetryClicked="onRetryClicked" errorMessage="网络不给力?"></retry>
+<loading visibility="{{loading}}"></loading>
+<view class='root' style="display:{{loading?'none':'flex;'}}">
+
+    <view class="swiper-tab">
+        <view class="swiper-tab-item {{currentTab==0?'active':''}}" data-current="0" bindtap="clickTab">待支付订单</view>
+        <view class="swiper-tab-item {{currentTab==1?'active':''}}" data-current="1" bindtap="clickTab">全部订单</view>
+    </view>
+
+    <swiper current="{{currentTab}}" duration="300" bindchange="swiperTab" style='height:calc(100vh - 60px);'>
+        <swiper-item style="height:100%;">
+            <scroll-view scroll-y style="height: 100%">
+                <view style='margin-bottom:10px;' />
+                <view class="tab_card" style='margin-bottom:10px;' wx:for="{{orders}}" wx:if="{{item.status==='UNPAID'}}" wx:key='{{item.id}}'>
+                    <view class="tab_card_item">
+                        <text style='text-align:left;'>待支付({{item.expiredIn}})</text>
+
+                        <view style='display:flex;align-items:center;justify-content:flex-end;' bindtap='onOrderDetailClicked' data-order="{{item}}">
+                            <text style='font-weight:normal;'>订单详情</text>
+                            <image style='margin-left:10px;width:14px;height:14px;' src='/resources/imgs/ico_forward_black.svg'></image>
+                        </view>
+
+                    </view>
+                    <horizontalLine/>
+                    <view class="tab_card_item" style='margin-top:15rpx;'>
+                        <view style='text-align:left;font-weight:normal;font-size:14px;'>
+                            <text>{{item.orderItems[0].productName}}</text>
+                            <text style='margin-left:15px;'>等{{item.totalCount}}件商品</text>
+                        </view>
+                        <text>¥{{item.totalPrice}}</text>
+                    </view>
+                    <view class="tab_card_item">
+                        <text style='flex-grow:1;'></text>
+                        <button class='btn_pay_now'>立即支付</button>
+                    </view>
+                </view>
+
+            </scroll-view>
+        </swiper-item>
+        <swiper-item>
+            <scroll-view scroll-y style="height: 100%">
+                <view style='margin-bottom:10px;' />
+                <view class="tab_card" style='margin-bottom:10px;' wx:for="{{orders}}" wx:if="{{item.status!=='UNPAID'}}" wx:key='{{item.id}}'>
+                    <view class="tab_card_item">
+                        <text style='text-align:left;' wx:if="{{item.status==='PAID'}}">已付款,等待确认</text>
+                        <text style='text-align:left;' wx:elif="{{item.status==='CONFIRMED'}}">已确认,请按时到店里取(就)餐</text>
+                        <text style='text-align:left;' wx:elif="{{item.status==='CANCELED'}}">订单已取消</text>
+                        <text style='text-align:left;' wx:else="{{item.status==='FINISHED'}}">订单已完成,感谢您的光顾</text>
+                        <view style='display:flex;align-items:center;justify-content:flex-end;' bindtap='onOrderDetailClicked' data-order="{{item}}">
+                            <text style='font-weight:normal;'>订单详情</text>
+                            <image style='margin-left:10px;width:14px;height:14px;' src='/resources/imgs/ico_forward_black.svg'></image>
+                        </view>
+
+                    </view>
+                    <horizontalLine/>
+                    <view class="tab_card_item" style='margin-top:15rpx;'>
+                        <view style='text-align:left;font-weight:normal;font-size:14px;'>
+                            <text>{{item.orderItems[0].productName}}</text>
+                            <text style='margin-left:15px;'>等{{item.totalCount}}件商品</text>
+                        </view>
+                        <text>¥{{item.totalPrice}}</text>
+                    </view>
+                    <view class="tab_card_item">
+                        <text style='flex-grow:1;'></text>
+                        <button class='btn_pay_now'>立即支付</button>
+                    </view>
+                </view>
+
+            </scroll-view>
+        </swiper-item>
+    </swiper>
+
+
+
+</view>

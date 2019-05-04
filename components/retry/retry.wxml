@@ -1,0 +1,4 @@
+<view  class='root' style="display:{{visibility?'flex':'none'}}">
+    <text style='margin-bottom:10px;'>{{errorMessage}}</text>
+    <button bindtap='onRetryClicked'>点击重试</button>
+</view>

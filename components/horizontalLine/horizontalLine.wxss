@@ -1,0 +1,9 @@
+/* components/horizontalLine/horizontalLine.wxss */
+
+.root {
+    height: 1px;
+    width: calc(100vw -10px);
+    background-color: #bbbbbb55;
+    margin-left: 5px;
+    margin-right: 5px;
+}

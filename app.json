@@ -1,0 +1,42 @@
+{
+    "pages": [
+        "pages/index/index",
+        "pages/orderList/orderList",
+        "pages/mine/mine",
+        "pages/menu/menu",
+        "pages/checkout/checkout",
+        "pages/orderDetail/orderDetail"
+    ],
+    "window": {
+        "backgroundTextStyle": "light",
+        "navigationBarBackgroundColor": "#fff",
+        "navigationBarTitleText": "艾克餐饮",
+        "navigationBarTextStyle": "black"
+    },
+    "tabBar": {
+        "color": "#a9b7b7",
+        "selectedColor": "#11cd6e",
+        "borderStyle": "black",
+        "list": [
+            {
+                "selectedIconPath": "./resources/imgs/tab_reservate_selected.png",
+                "iconPath": "./resources/imgs/tab_reservate.png",
+                "pagePath": "pages/index/index",
+                "text": "点餐"
+            },
+            {
+                "selectedIconPath": "./resources/imgs/tab_order_selected.png",
+                "iconPath": "./resources/imgs/tab_order.png",
+                "pagePath": "pages/orderList/orderList",
+                "text": "订单"
+            },
+            {
+                "selectedIconPath": "./resources/imgs/tab_mine_selected.png",
+                "iconPath": "./resources/imgs/tab_mine.png",
+                "pagePath": "pages/mine/mine",
+                "text": "我的"
+            }
+        ]
+    },
+    "sitemapLocation": "sitemap.json"
+}

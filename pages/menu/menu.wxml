@@ -1,0 +1,95 @@
+<!--pages/menu/menu.wxml-->
+<retry visibility="{{(!loading)&&(!loadingSuccess)}}" bind:onRetryClicked="onRetryClicked" errorMessage="网络不给力?"></retry>
+<loading  visibility="{{loading}}" ></loading>
+<view class='root' style="display:{{loading?'none':''}}">
+
+    <swiper class='menu_top' indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+        <swiper-item wx:for="{{imgUrls}}" wx:key="{{item}}" style="background-color: red;">
+            <image src="{{item}}" style="background-color: gray;width:100vw;height:100%" mode='scaleToFill'></image>
+        </swiper-item>
+    </swiper>
+    <view class='menu_middle'>
+        <view class='menu_left'>
+            <scroll-view scroll-y style="height: 100%" >
+
+                <view wx:for="{{categories}}" wx:key="{{item}}" bindtap='onMenuLeftClicked' data-category='{{item}}' class='menu_left_item'>
+                    <!-- <image src='{{item.img}}' width="30px"/> -->
+                    <view class="menu_left_dot"></view><text class='menu_left_text'>{{item.title}}</text>
+                </view>
+
+
+            </scroll-view>
+        </view>
+        <view class='menu_content'>
+         <view  class="menu_content_card_title" id="content_title">
+                    {{selectedCategory.title}} 
+                </view>
+            <scroll-view 
+             style="height: calc(100% - 7vh )" 
+            scroll-into-view="{{toView}}"
+            scroll-y
+               >
+               
+                <view wx:for="{{categories}}" wx:for-item='cate' id="{{'cate_'+cate.id}}" wx:key="{{cate.id}}">
+                    <view wx:for="{{cate.products}}" wx:key="{{product.id}}" wx:for-item='product' class="menu_content_card">
+                        <image class='menu_content_card_left_container' style='width:25vw;height:25vw;' mode='scaleToFill' src="{{product.img}}"></image>
+                        <view class='menu_content_card_right_container'>
+                            <text selectable='true' style='font-size:16px;font-weight: bold;'>{{product.name}}</text>
+                            <view style='' class='menu_content_item_description'>{{product.description}}</view>
+                            <text style='font-size:13px;'>销量:{{product.salesVolume}}</text>
+                            <view class='menu_content_card_price_container'>
+                                <text style='font-size:16px;color:red;font-weight: bold;'>{{product.price}}</text>
+                                <view style='flex-grow: 1;'></view>
+                                <button class='shopping_cart_sub' style="{{(cartMap[product.id]===undefined||cartMap[product.id].quantity===0)?'display:none':''}}" bindtap='onSubingDishClicked' data-product='{{product}}'>-</button>
+                                <text wx:if="{{cartMap[product.id]===undefined}}">0</text>
+                                <text wx:else>{{cartMap[product.id].quantity}}</text>
+                                <button class='shopping_cart_add' bindtap='onAddingDishClicked' data-product='{{product}}'>+</button>
+                            </view>
+
+                        </view>
+                    </view>
+                </view>
+
+
+
+            </scroll-view>
+
+        </view>
+    </view>
+    <view class='menu_bottom'>
+        <view class='menu_bottom_left' bindtap='onShowShoppingCart'>
+            <image src='../../resources/imgs/shopping_cart.png' class='menu_bottom_shopping_cart'></image>
+            <view style='margin-left:15px;font-weight:bold;font-size:18px;'>¥{{totalPrice}}</view>
+        </view>
+        <view style='width:1px;background-color:white;height:100%;font-size:16px;'></view>
+        <view class='menu_bottom_right' bindtap='onCheckoutClicked'>
+            选好了<image style='margin-left:5px;width:16px;height:16px;' src='/resources/imgs/ico_forward_white.svg'></image>
+        </view>
+
+    </view>
+    <view class="bottom_popup_shopping_cart_back_layer" catchtap='onCloseShoppingCart' style="display:{{showShoppingCart?'':'none'}}">
+
+        <view class="bottom_popup_shopping_cart" catchtap='onShoppingCartContentClicked'>
+            <view class="bottom_popup_shopping_cart_title">
+                <text>包装品{{packageFee}}元</text>
+                <text style="flex-grow: 1;"></text>
+                <text bindtap='onEmptyCartClicked' class="clear_shopping_cart">清空购物车</text>
+            </view>
+            <view class="bottom_popup_shopping_cart_content">
+                <view class="bottom_popup_shopping_cart_content_item_outer" wx:for="{{cartMap}}" wx:key="{{item.product.id}}" wx:if="{{item.quantity>0}}">
+                    <view class='bottom_popup_shopping_cart_content_item' style='padding:3vw;'>
+                        <text style='width:48vw;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;'>{{item.product.name}}</text>
+                        <text style='width:23vw;text-align: center;'>{{item.subTotal}}</text>
+                        <view style='width:23vw;display:flex;flex-direction:row;align-items:center;justify-content:flex-end;'>
+                            <button class='shopping_cart_sub' style="{{(item===undefined||item.quantity===0)?'display:none':''}}" bindtap='onSubingDishClicked' data-product='{{item.product}}'>-</button>
+                            <text>{{item.quantity}}</text>
+                            <button class='shopping_cart_add' style='margin-right:0px;' bindtap='onAddingDishClicked' data-product='{{item.product}}'>+</button>
+                        </view>
+                    </view>
+                    <view style='height:3px;width:100vw;background-color:#efefef;'></view>
+                </view>
+            </view>
+        </view>
+    </view>
+
+</view>

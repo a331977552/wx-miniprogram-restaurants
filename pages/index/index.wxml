@@ -1,0 +1,39 @@
+<!--index.wxml-->
+<view class="container">
+<button
+  class='home_button_order_reserve'
+  loading="{{loading}}"
+  plain="{{plain}}"
+  disabled="{{disabled}}"
+  bindtap="onOrderNowClicked"
+>
+<view class="home_button_inner_content_container">
+  <image mode='aspectFit' style='height:20vh;' src='../../resources/imgs/home_order_now.png'/>
+  <view style='font-size:26px; line-height:1.2'>现在点餐</view>
+    <view style='font-size:12px;'>支付成功后，可直接在门店取餐</view>
+</view>
+</button>
+<button
+  class='home_button_order_reserve'
+  loading="{{loading}}"
+  plain="{{plain}}"
+  disabled="{{disabled}}"
+  bindtap="onOrderLaterClicked"
+>
+<view class="home_button_inner_content_container">
+  <image mode='aspectFit' style='height:20vh;' src='../../resources/imgs/home_reservation.png'/>
+  <view style='font-size:26px; line-height:1.2'>预约点餐</view>
+    <view style='font-size:12px;'>支付成功后，可在今日预定的时间到门店取餐</view>
+</view>
+</button>
+<!--  <view class="userinfo">
+    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
+    <block wx:else>
+      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
+      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+    </block>
+  </view>
+  <view class="usermotto">
+    <text class="user-motto">{{motto}}</text>
+  </view>-->
+</view>

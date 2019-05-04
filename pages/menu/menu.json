@@ -1,0 +1,9 @@
+{
+  "usingComponents": {
+
+      "loading":"/components/loading/loading",
+       "retry": "/components/retry/retry"
+  },
+
+    "navigationBarTitleText": "现在点餐"
+}
